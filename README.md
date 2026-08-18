@@ -6,16 +6,13 @@
 
 ## Mini análisis de ingeniería inversa sobre `kdcsvc.dll`
 
-La prueba se ejecuta desde `jellybeelab\rn-low`. El cliente utiliza `rn-controlled` como cuenta controlada, conozco su contraseña y puedo modificar su `userPrincipalName`. El objetivo es `rn-target`, una cuenta distinta perteneciente a **Domain Admins**, cuya contraseña inicial no conozco.
+El laboratorio se ejecuta desde `jellybeelab\rn-low`. El cliente utiliza `rn-controlled` como cuenta controlada, conozco su contraseña y puedo modificar su `userPrincipalName`. El objetivo es `rn-target`, una cuenta distinta perteneciente a **Domain Admins**, cuya contraseña inicial no conozco.
 
-<video
-  src="./assets/resetnightmare-positive-evidence.mp4"
-  poster="./assets/resetnightmare-video-poster.png"
-  controls
-  preload="auto"
-  playsinline
-  width="100%">
-</video>
+
+
+https://github.com/user-attachments/assets/18e614c8-07c0-42df-85c9-64668bb3781a
+
+
 
 Durante la ejecución asigno temporalmente `rn-target` como `userPrincipalName` de `rn-controlled` y solicito al KDC un ticket Kerberos para `kadmin/changepw` mediante `NT-ENTERPRISE`. Una vez obtenido el ticket elimino el UPN temporal, por lo que `rn-target` vuelve a resolver a la cuenta objetivo mientras el ticket conserva el nombre utilizado durante su emisión.
 
