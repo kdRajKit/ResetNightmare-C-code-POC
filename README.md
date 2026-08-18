@@ -38,16 +38,16 @@ En `.5020` aparece una rama adicional inmediatamente antes de `KerbCreateTokenFr
 0x18007ADBA  call  Feature_3827761466::__private_IsEnabled
 0x18007ADBF  mov   sil, byte [rbp-0x7c]
 0x18007ADC3  test  al, al
-0x18007ADC5  je    continuar
+0x18007ADC5  je    <continue_path>
 0x18007ADC7  test  sil, sil
-0x18007ADCA  jne   continuar
+0x18007ADCA  jne   <continue_path>
 0x18007ADCC  mov   rcx, qword [rbp-0x70]
 0x18007ADD0  lea   rdx, [rbp+0xd0]
 0x18007ADD7  call  KdcValidatePacUserSid
 0x18007ADDF  test  eax, eax
-0x18007ADE1  je    continuar
+0x18007ADE1  je    <continue_path>
 0x18007ADE3  mov   ebx, 0xC0000022
-0x18007ADE8  jmp   salida_error
+0x18007ADE8  jmp   <error_path>
 0x18007AEAA  call  KerbCreateTokenFromTicketForKdc
 ```
 
